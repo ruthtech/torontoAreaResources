@@ -1,0 +1,24 @@
+TITLE:
+Research an area in Toronto.
+
+DESCRIPTION:
+Help a family research area schools when they are looking to buy a home. 
+
+USER STORY:
+As a family in Toronto
+I want to purchase a home
+so that my amenities are close by.
+
+WIREFRAME: 
+* An entry field for the user to enter the address or intersection.
+* A map with markers that can be clicked. 
+
+APIs TO BE USED:
+* Toronto JSON data API https://open.toronto.ca/dataset/red-light-cameras/
+* MapBox API https://docs.mapbox.com/api/navigation/
+
+CSS FRAMEWORK TO BE USED:
+* Bulma (CSS framework) https://bulma.io/
+
+ROUGH BREAKDOWN OF TASKS: 
+Listed on the project "Issues" and "Milestones" pages.
