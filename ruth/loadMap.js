@@ -5,6 +5,7 @@ function createMap() {
 	// Later, after the map has been populated with many points, centre the map on the main Toronto coordinates.
 	const torontoLat = 43.7;
 	const torontoLon = -79.42;
+	console.log("louuurd");
 
 	// 9 shows Toronto and surrounding areas. 
 	// 12 shows the city. 

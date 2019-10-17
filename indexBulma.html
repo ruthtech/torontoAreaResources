@@ -8,7 +8,11 @@
     <link rel="icon" type="image/png" href="./assets/images/cn-tower.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <!-- <link rel="stylesheet" href="./assets/styles/debug.css"> -->
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script src="./ruth/login.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+
     <link rel="stylesheet" href="./assets/styles/main.css">
 </head>
 
@@ -23,7 +27,7 @@
         </div>
     </section>
     
-    <section id="error-message">
+    <!-- <section id="error-message">
 
         <article class="message is-danger">
             <div class="message-header">
@@ -34,13 +38,15 @@
             </div>
         </article>
 
-    </section>
+    </section> -->
 
 
 
     <section class="container" id="main-content">
     <div class="columns">
-        <div class="column is-two-thirds text-center">MAPS</div>
+        <div class="column is-two-thirds text-center" id="map">MAPS</div>
+
+
         <div class="column">
             <form class="form-horizontal has-background-light">
                 <fieldset>
@@ -119,7 +125,7 @@
 
                     <div class="field">
                         <div class="control center">
-                            <button id="singlebutton-0" class="button is-primary">Search</button>
+                            <button id="singlebutton-0" class="button is-primary" onclick="createMap()">Search</button>
                         </div>
                     </div>
             
@@ -145,6 +151,24 @@
         </p>
     </div>
 </footer>
+
+
+
+    <div id='map'></div>
+    
+    <script>
+        $(document).ready(
+            function () {
+                if (!Login.isAPIKeySet()) {
+                    // move to next page
+                    window.location = "./ruth/login.html";
+                }
+            }
+        );
+    </script>
+    
+    <script src="./ruth/loadMap.js"></script>
+
 
 </body>
 
