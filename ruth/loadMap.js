@@ -22,15 +22,19 @@ function createMap() {
 	
 	// loop over the schools
 	let schools = getSchools();
+	console.log("here");
+	console.log(schools);
 	for(let i=0; i<schools.length; i++) {
 		let school = schools[i];
-		let marker = addMarkerToMap(map, school);
-		marker.addTo(map);
+		let marker = createMarker(school, map);
+//		marker.addTo(map);
 	}
 }
 
 function getSchools() {
-	return [createTempSchool()];
+	let schools = [createTempSchool()];
+	console.log(schools);
+	return schools;
 }
 
 function createTempSchool() {
@@ -38,19 +42,21 @@ function createTempSchool() {
 	{
 		name: "A School",
 		desc: "A really good school",
-		lon: schoolLat,
-		lat: schoolLon		
+		lon: schoolLon,
+		lat: schoolLat		
 	};
-	
+	console.log(school);
 	return school;
 }
 	
-function createMarker( school ) {
+function createMarker( school, map ) {
 	let popup = new mapboxgl.Popup()
 	  .setHTML('<h3>${school.name}</h3><p>${school.desc}</p>');
 
 	let marker = new mapboxgl.Marker()
 	  .setLngLat([school.lon, school.lat])
-	  .setPopup(popup);
+	  .setPopup(popup)
+	  .addTo(map);
 
+	return marker;
 }
