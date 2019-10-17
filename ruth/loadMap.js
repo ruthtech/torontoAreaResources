@@ -1,7 +1,6 @@
-let x = function createMap( schools ) {
-	if(!schools) {
-		console.log("createMap. Error. Schools must be initialized.");
-	}
+let map = null; // initialize in createMap
+
+function createMap() {
 	// Later, after the map has been populated with many points, centre the map on the main Toronto coordinates.
 	const torontoLat = 43.7;
 	const torontoLon = -79.42;
@@ -12,22 +11,41 @@ let x = function createMap( schools ) {
 	let zoomLevel = 12;
 	
 	mapboxgl.accessToken = Login.retrieveAPIKey();
-	let map = new mapboxgl.Map({
+	map = new mapboxgl.Map({
 		  container: 'map', // HTML container id
 		  style: 'mapbox://styles/mapbox/streets-v11', // style URL
 		  center: [torontoLon, torontoLat], // starting position as [lng, lat]
 		  zoom: zoomLevel
 		});
-	
+	createMarker(torontoLat, torontoLon, "<h1>Toronto</h1>", map);
+}
+
+// Required that "createMap" is called before this method.
+function addSchoolsToMap( schools ) {
+	if(!schools) {
+		console.log("addSchoolsToMap. Error. Schools must be initialized.");
+	}
+
 	// loop over the schools
 	for(let i=0; i<schools.length; i++) {
 		let school = schools[i];
-		let marker = createMarker(school, map);
+		let marker = createSchoolMarker(school, map);
 	}
 }
-fetchSchools( x );		
 
-function createMarker( school, map ) {
+function createMarker( lat, lon, html, map ) {
+	let popup = new mapboxgl.Popup()
+	  .setHTML(html);
+
+	let marker = new mapboxgl.Marker()
+	  .setLngLat([lon, lat])
+	  .setPopup(popup)
+	  .addTo(map);
+
+	return marker;	
+}
+
+function createSchoolMarker( school ) {
 	let popupHTML = `
 		<h3>${school.name}</h3>
 		<h4>Alternative name: ${school.nameAlt}</h4>
@@ -35,13 +53,13 @@ function createMarker( school, map ) {
 		<p>${school.addressFull}</p>
 		<p>${school.typeDesc}</p>
 	`;
-	let popup = new mapboxgl.Popup()
-	  .setHTML(popupHTML);
-
-	let marker = new mapboxgl.Marker()
-	  .setLngLat([school.longitude, school.latitude])
-	  .setPopup(popup)
-	  .addTo(map);
-
-	return marker;
+	
+	return createMarker(school.latitude, school.longitude, popupHTML, map);
 }
+
+// On page load, display an empty map
+createMap();
+
+// Then add markers for the schools
+let x = fetchSchools( addSchoolsToMap );		
+
