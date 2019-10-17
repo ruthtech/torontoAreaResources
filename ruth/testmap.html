@@ -56,12 +56,14 @@ body {
 			  zoom: zoomLevel
 			});
 		
-		let marker = new mapboxgl.Marker()
-		  .setLngLat([schoolLon, schoolLat])
-		  .addTo(map);
-		
 		let popup = new mapboxgl.Popup()
 		  .setHTML('<h3>A School</h3><p>A good elementary school</p>');
+
+		let marker = new mapboxgl.Marker()
+		  .setLngLat([schoolLon, schoolLat])
+		  .setPopup(popup)
+		  .addTo(map);
+		
 </script>
 
 </body>
