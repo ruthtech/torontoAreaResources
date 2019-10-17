@@ -85,6 +85,16 @@ $.ajax({
                 // resources.push(response);
 
 				console.log(response, 'r2');
+				let nextURL = `https://ckan0.cf.opendata.inter.prod-toronto.ca/${response._links.next}`;
+				console.log(nextURL);
+				
+				$.get(nextURL)
+				.then(
+						function(response) {
+							console.log("nextURL");
+							console.log(response);
+						}
+					);
 
                 /**********************************************
 				POPULATE OUR OBJECT WITH RELEVANT RESPONSE DATA
