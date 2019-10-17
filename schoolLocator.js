@@ -57,6 +57,13 @@ $.ajax({
         
         var resource = theirPackage.school["result"]["resources"][i];
         let testId = `02ef7447-54d9-4aa7-b76d-8ef8138ac546`;
+        
+        // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search?id=02ef7447-54d9-4aa7-b76d-8ef8138ac546`,
+        // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search?id=02ef7447-54d9-4aa7-b76d-8ef8138ac546&offset=200`,
+        // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search&limit=200`,
+
+        let urlWithProxy = `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search&offset=200`;
+        let url = `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search&offset=200`;
 
 
         if (resource["datastore_active"]) {
@@ -66,10 +73,7 @@ $.ajax({
                 dataType: "json",
                 type: "GET",
 
-                url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search`,
-                // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search?id=02ef7447-54d9-4aa7-b76d-8ef8138ac546`,
-                // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search?id=02ef7447-54d9-4aa7-b76d-8ef8138ac546&offset=200`,
-                // url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search&limit=200`,
+                url: url,
                 
                 // data: { "id": resource["id"] }
                 data: { "id": testId },
