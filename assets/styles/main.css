@@ -23,6 +23,10 @@ background: transparent;
     align-items: center;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .cn-tower {
     max-width: 80px;
 }
@@ -45,16 +49,20 @@ footer {
 
 #main-content {
     margin-top: 5rem;
-    text-align: center;
+    /* text-align: center; */
 }
 
+form {
+    padding: 20px;
+}
 
-.has-background-grey {
-    background-color: green ;
+#error-message {
+    width: 80%;
+    margin: 50px auto;
+    /* display: none; */
 }
             
 @media screen and (max-width: 768px) {
-    body {
-        background-color: olive;
-    }
+
 }
+
