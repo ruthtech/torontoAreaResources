@@ -61,5 +61,5 @@ function createSchoolMarker( school ) {
 createMap();
 
 // Then add markers for the schools
-let x = fetchSchools( addSchoolsToMap );		
+fetchSchools( addSchoolsToMap );		
 
