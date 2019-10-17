@@ -1,7 +1,7 @@
 function fetchSchools( myCallbackFunction ) {
 	const proxyServer = 'https://cors-anywhere.herokuapp.com/';
 	
-	const ourObj = {};
+	const ourObj = {};   
 	      ourObj.schools       = [];
 	      ourObj.schools_dirty = null;
 	
