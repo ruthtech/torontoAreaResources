@@ -7,6 +7,8 @@
     <script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
 	<script src="./login.js"></script>
     <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css'	rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 <style>
 body {
 	margin: 0;
@@ -24,6 +26,9 @@ body {
 <body>
 	<!-- How to construct a map for a location (hard-code Toronto). -->
 	<!-- https://docs.mapbox.com/api/navigation/ -->
+<!-- 	Search for 1 Bloor -->
+<!-- 	https://api.mapbox.com/geocoding/v5/mapbox.places/1%20Bloor%20.json?access_token=pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g&cachebuster=1571325155194&autocomplete=true&country=ca -->
+	
 
 	<div id='map'></div>
 	<script>
@@ -39,5 +44,14 @@ body {
     			   .setView([torontoLat, torontoLon], zoomLevel) 
                    .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 </script>
+   	<script>
+   		function isAPISet() {
+	        if(!Login.isAPIKeySet()) {
+	        	// move to next page
+	        	window.location = "./login.html";
+	        }
+   		}
+   	</script>
+
 </body>
 </html>
