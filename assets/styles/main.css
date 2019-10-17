@@ -55,6 +55,12 @@ footer {
 form {
     padding: 20px;
 }
+
+#error-message {
+    width: 80%;
+    margin: 50px auto;
+    /* display: none; */
+}
             
 @media screen and (max-width: 768px) {
 

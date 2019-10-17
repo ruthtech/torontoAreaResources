@@ -22,6 +22,21 @@
             <h1 id="title">Toronto Area Resources</h1>
         </div>
     </section>
+    
+    <section id="error-message">
+
+        <article class="message is-danger">
+            <div class="message-header">
+                <p>Something wrong..</p>
+            </div>
+            <div class="message-body">
+                There is no such a place like this in this area, <strong> modify the distance limit</strong> or <strong>entrer a valid address!</strong>
+            </div>
+        </article>
+
+    </section>
+
+
 
     <section class="container" id="main-content">
     <div class="columns">
@@ -35,24 +50,24 @@
             
                     <!-- Search input-->
                     <div class="field">
-                        <label class="label" for="searchinput-0">Enter an adresse </label>
+                        <label class="label">Enter an address</label>
                         <div class="control">
-                            <input id="searchinput-0" name="searchinput-0" type="text" placeholder="256 College St"
-                                class="input is-rounded  search-query">
+                            <input id="searchinput-0" type="text" placeholder="256 College St"
+                                class="input is-rounded is-primary search-query">
             
                         </div>
                     </div>
             
 
                     <div class="field">
-                        <label class="label" for="selectbasic-2">Distance around</label>
+                        <label class="label">Distance limit</label>
                         <div class="control">
-                            <div class="select">
-                                <select id="selectbasic-2" name="selectbasic-2" class="">
+                            <div class="select is-primary">
+                                <select id="selectbasic-2"  >
                                     <option>1km</option>
                                     <option>5km</option>
                                     <option>10km</option>
-                                    <option>20km</option>
+                                    <option>25km</option>
                                 </select>
                             </div>
                         </div>
@@ -60,32 +75,36 @@
             
 
                     <div class="field">
-                        <label class="label" for="selectbasic-1">Choose a neighbourhoods</label>
-                        <div class="control">
-                            <div class="select">
-                                <select id="selectbasic-1" name="selectbasic-1" class="">
-                                    <option>Option one</option>
-                                    <option>Option two</option>
+                        <label class="label">Choose a neighbourhood</label>
+                        <div class="control has-icons-left">
+                            <div class="select is-primary">
+                                <select id="selectbasic-1"  >
+                                    <option>North York</option>
+                                    <option>Downtown</option>
+                                    <option>Rosedale</option>
                                 </select>
+                                    <div class="icon is-small is-left">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
                             </div>
                         </div>
                     </div>
             
 
                     <div class="field">
-                        <label class="label" for="textinput-2">Looking for a specific place?</label>
+                        <label class="label">Looking for a specific place?</label>
                         <div class="control">
-                            <input id="textinput-2" name="textinput-2" type="text" placeholder="Tim Hortons" class="input ">
+                            <input id="textinput-2" type="text" placeholder="Tim Hortons" class="input is-primary ">
             
                         </div>
                     </div>
             
 
                     <div class="field">
-                        <label class="label" for="selectbasic-0">Categories</label>
+                        <label class="label">Categories</label>
                         <div class="control">
-                            <div class="select">
-                                <select id="selectbasic-0" name="selectbasic-0" class="">
+                            <div class="select is-primary">
+                                <select id="selectbasic-0"  >
                                     <option>School</option>
                                     <option>Restaurant</option>
                                     <option>Fitness center</option>
@@ -100,16 +119,22 @@
 
                     <div class="field">
                         <div class="control center">
-                            <button id="singlebutton-0" name="singlebutton-0" class="button is-primary">Search</button>
+                            <button id="singlebutton-0" class="button is-primary">Search</button>
                         </div>
                     </div>
             
             </fieldset>
         </form>
 
+
+
+        <section id="search-results"></section>
+
+
     </div>
     </div>
     </section>
+
 
 
 
