@@ -46,12 +46,15 @@ function createMarker( lat, lon, html, map ) {
 }
 
 function createSchoolMarker( school ) {
+	let typeDesc = (school.typeDesc == undefined) ? `<p></p>` : `<p>${school.typeDesc}</p>`;
+	let board = (school.board == undefined) ? `<p>Board: Private school</p>` : `<p>${school.board}</p>`;
 	let popupHTML = `
 		<h3>${school.name}</h3>
 		<h4>Alternative name: ${school.nameAlt}</h4>
 		<p>Municipality: ${school.municipality}</p>
+		${board}
 		<p>${school.addressFull}</p>
-		<p>${school.typeDesc}</p>
+		${typeDesc}
 	`;
 	
 	return createMarker(school.latitude, school.longitude, popupHTML, map);
