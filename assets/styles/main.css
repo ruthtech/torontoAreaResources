@@ -31,6 +31,10 @@ background: transparent;
     max-width: 80px;
 }
 
+.column {
+    padding: 0 !important;
+}
+
 footer {
     position: absolute;
     width: 100%;
