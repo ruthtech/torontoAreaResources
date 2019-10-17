@@ -1,0 +1,68 @@
+html {
+overflow: scroll;
+overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+width: 0px; 
+background: transparent;
+}
+
+#title {
+    color: #363636;
+    font-weight: 600;
+    line-height: 1.125;
+    font-size: 3rem;
+    color: #32B1CC;
+    text-shadow: -1px -1px black, -1px 1px black, 1px 1px black, 1px -1px black;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.cn-tower {
+    max-width: 80px;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    font-size: 14px;
+}
+
+#hero-body {
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 1rem 0rem;
+}
+
+#main-content {
+    margin-top: 5rem;
+    /* text-align: center; */
+}
+
+form {
+    padding: 20px;
+}
+
+#error-message {
+    width: 80%;
+    margin: 50px auto;
+    /* display: none; */
+}
+            
+@media screen and (max-width: 768px) {
+
+}
+

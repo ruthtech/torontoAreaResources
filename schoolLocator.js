@@ -132,7 +132,6 @@ TORONTO PUBLIC LIBRARY FETCH
 // Get the dataset metadata by passing package_id to the package_search endpoint
 // For example, to retrieve the metadata for this dataset:
 
-// theirLibraryPackage = {};
 
 // $.ajax({
 //     dataType: "json",
@@ -141,7 +140,7 @@ TORONTO PUBLIC LIBRARY FETCH
 //     data: { "id": "8d8f4405-7b90-4264-8607-b27ab63b9359" }
 
 // }).done(function(response) {
-//     theirLibraryPackage = response;
+
 // 	console.log(response);
 // });
 
