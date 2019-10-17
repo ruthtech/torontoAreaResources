@@ -1,10 +1,12 @@
 const schoolLat =  43.7765020619;
 const schoolLon = -79.3851899865;
 
-function createMap() {
+function createMap( stevesSchools ) {
 	// Later, after the map has been populated with many points, centre the map on the main Toronto coordinates.
 	const torontoLat = 43.7;
 	const torontoLon = -79.42;
+	console.log(stevesSchools);
+	console.log("louuurd");
 
 	// 9 shows Toronto and surrounding areas. 
 	// 12 shows the city. 
@@ -26,8 +28,19 @@ function createMap() {
 	for(let i=0; i<schools.length; i++) {
 		let school = schools[i];
 		let marker = createMarker(school, map);
-//		marker.addTo(map);
 	}
+}
+
+function createMarker( school, map ) {
+	let popup = new mapboxgl.Popup()
+	  .setHTML('<h3>${school.name}</h3><p>${school.desc}</p>');
+
+	let marker = new mapboxgl.Marker()
+	  .setLngLat([school.lon, school.lat])
+	  .setPopup(popup)
+	  .addTo(map);
+
+	return marker;
 }
 
 function getSchools() {
@@ -46,16 +59,4 @@ function createTempSchool() {
 	};
 	console.log(school);
 	return school;
-}
-	
-function createMarker( school, map ) {
-	let popup = new mapboxgl.Popup()
-	  .setHTML('<h3>${school.name}</h3><p>${school.desc}</p>');
-
-	let marker = new mapboxgl.Marker()
-	  .setLngLat([school.lon, school.lat])
-	  .setPopup(popup)
-	  .addTo(map);
-
-	return marker;
 }
