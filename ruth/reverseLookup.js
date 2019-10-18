@@ -30,6 +30,8 @@ function reverseLookup( address, callbackFunction ) {
       queryURL
     ).then(
 		function(response) {
+			console.log("in reverse Lookup");
+			console.log(response);
 			callbackFunction(response);
 		}
     );
