@@ -31,6 +31,10 @@ background: transparent;
     max-width: 80px;
 }
 
+.column {
+    padding: 0 !important;
+}
+
 footer {
     position: absolute;
     width: 100%;
@@ -53,7 +57,10 @@ footer {
 }
 
 form {
-    padding: 20px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #error-message {
