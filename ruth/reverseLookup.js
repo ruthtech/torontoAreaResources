@@ -18,7 +18,7 @@ function constructReverseLookupURL( address ) {
 	const otherParms = `?access_token=${apiKey}&cachebuster=1571367145365&autocomplete=true`;
 	
 	const reverseLookupURL = `${URLstart}${normalizedAddress}${cityProvinceCountry}${otherParms}`;
-
+	return reverseLookupURL;
 }
 
 function reverseLookup( address, callbackFunction ) {
