@@ -10,7 +10,7 @@
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
-    center: [-77.034084142948, 38.909671288923],
+    center: [-79.376195, 43.6727089],
     zoom: 13,
     scrollZoom: false
   });

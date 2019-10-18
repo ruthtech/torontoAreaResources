@@ -36,21 +36,6 @@ var bloor = {
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -77.0672,
-          38.90516896
-        ]
-      },
-      "properties": {
-        "phoneFormatted": "(416) 555-5555",
-        "address": "Canada's Walk of Fame, King St W, Toronto, Ontario M5V 1H9, Canada",
-        "municipality": "North York"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -79.385565,
           43.659121
         ]
