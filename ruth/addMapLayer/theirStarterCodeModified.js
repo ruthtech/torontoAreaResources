@@ -15,13 +15,13 @@
     scrollZoom: false
   });
 
-  // This adds the stores to the map
+  // This adds the bloor to the map
   map.on('load', function(e) {
     map.addSource('places', {
       type: 'geojson',
-      data: stores
+      data: bloor
     });
-    buildLocationList(stores); // Initialize the list
+    buildLocationList(bloor); // Initialize the list
 
     // Add `new mapboxgl.Geocoder` code here
 
@@ -37,7 +37,7 @@
   });
 
 
-  stores.features.forEach(function(marker, i) {
+  bloor.features.forEach(function(marker, i) {
     var el = document.createElement('div'); // Create an img element for the marker
     el.id = 'marker-' + i;
     el.className = 'marker';
@@ -74,7 +74,7 @@
 
     var popup = new mapboxgl.Popup({ closeOnClick: false })
       .setLngLat(currentFeature.geometry.coordinates)
-      .setHTML('<h3>Sweetgreen</h3>' +
+      .setHTML('<h3>School</h3>' +
         '<h4>' + currentFeature.properties.address + '</h4>')
       .addTo(map);
   }
@@ -97,10 +97,8 @@
       link.innerHTML = prop.address;
 
       var details = listing.appendChild(document.createElement('div'));
-      details.innerHTML = prop.city;
-      if (prop.phone) {
-        details.innerHTML += ' &middot; ' + prop.phoneFormatted;
-      }
+      details.innerHTML = prop.municipality;
+      details.innerHTML += ' &middot; ' + prop.phoneFormatted;
 
       // Add rounded distance here
 
