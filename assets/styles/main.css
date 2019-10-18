@@ -57,7 +57,10 @@ footer {
 }
 
 form {
-    padding: 20px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #error-message {
