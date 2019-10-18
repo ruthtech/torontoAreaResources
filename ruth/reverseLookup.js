@@ -14,7 +14,9 @@ function constructReverseLookupURL( address ) {
 	const URLstart = `https://api.mapbox.com/geocoding/v5/mapbox.places/`;
 	const normalizedAddress = escape(address);
 	const cityProvinceCountry = `Toronto%2C%20Ontario%20M4W%203G7%2C%20Canada.json`;
-	const apiKey = "pk.eyJ1IjoiZXNjaGVyZmFuIiwiYSI6ImNrMXRsYzlodjAzNTEzZG12dWtnZmNjNGkifQ.HH-RWtimFGhjPYwl5rxqZA";
+	const ourAPIKey = "pk.eyJ1IjoiZXNjaGVyZmFuIiwiYSI6ImNrMXRsYzlodjAzNTEzZG12dWtnZmNjNGkifQ.HH-RWtimFGhjPYwl5rxqZA";
+	const theirAPIKey = "pk.eyJ1IjoibWF0dGZpY2tlIiwiYSI6ImNqNnM2YmFoNzAwcTMzM214NTB1NHdwbnoifQ.Or19S7KmYPHW8YjRz82v6g";
+	const apiKey = theirAPIKey;
 	const otherParms = `?access_token=${apiKey}&cachebuster=1571367145365&autocomplete=true`;
 	
 	const reverseLookupURL = `${URLstart}${normalizedAddress}${cityProvinceCountry}${otherParms}`;
