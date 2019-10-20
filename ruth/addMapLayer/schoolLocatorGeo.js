@@ -1,7 +1,9 @@
+
 console.log('hi');
 
 
-const proxyServer = 'https://cors-anywhere.herokuapp.com/';
+//const proxyServer = 'https://cors-anywhere.herokuapp.com/';
+const proxyServer = 'https://repos.codehot.tech/cors_proxy.php?';
 
 
 const ourObj = {};
@@ -40,6 +42,7 @@ ALL TORONTO SCHOOLS FETCH
 Unchanged from example code at:  https://open.toronto.ca/dataset/school-locations-all-types/
 Example code under a 'For Developers' tab.
 ********************************************************************************************/
+function fetchSchools( myCallbackFunction ) {
 $.ajax({
     
     dataType: "json",
@@ -139,12 +142,17 @@ $.ajax({
                     if(i === ourObj.schools_dirty.length - 1){
                         
                         console.log(ourObj.schools, 'schools');
+                        console.log("About to call the callback function");
+                        myCallbackFunction(ourObj.schools, "marker-school");
+
                     };
                 };
             });
         });
     };
 });
+}
+
 
 
 
@@ -154,10 +162,11 @@ AIR CONDITIONED PUBLIC SPACED & COOLING CENTRES:
 
 - pull Community Centre & Library data from here
 ************************************************/
+function fetchCentresAndLibraries( myCallbackFunction ) {
 $.ajax({
     dataType: "json",
     type: "GET",
-    url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
+    url: `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
     data: { "id": "b5f103a8-f100-4f56-ac34-d178965f28b7" }
 })
 .done(function(response) {
@@ -226,11 +235,19 @@ $.ajax({
             if(i === ourObj.cooling_dirty.length - 1){
 
                 console.log(ourObj.communityCentres, 'community centers');
+                myCallbackFunction(ourObj.communityCentres, "marker-communityCentre");
+                
                 console.log(ourObj.libraries, 'libraries');
+                myCallbackFunction(ourObj.libraries, "marker-library");
+
             };
         };
+        
+        
+
     });
 });
+}
 
 
 
