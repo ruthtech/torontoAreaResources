@@ -123,15 +123,15 @@ a:hover {
 }
 
 .marker-school {
-	background-image: url("img/map-arrow-red.png");
+	background-image: url("./assets/images/map-arrow-red.png");
 }
 
 .marker-communityCentre {
-	background-image: url("img/map-arrow-green.png");
+	background-image: url("./assets/images//map-arrow-green.png");
 }
 
 .marker-library {
-	background-image: url("img/map-arrow-blue.png");
+	background-image: url("./assets/images//map-arrow-blue.png");
 }
 
 .clearfix {

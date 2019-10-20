@@ -12,11 +12,7 @@ function createMap() {
 
 	 const torontoLon = -79.376195;
 	 const torontoLat = 43.6727089;
-	const torontoLatStart = 43.855278;
-	const torontoLonStart = -79.639167;
-	const torontoLatEnd = 43.58; 
-	const torontoLonEnd = -79.113056; 
-	map = new mapboxgl.Map({
+     map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/mapbox/light-v10',
 		center: [torontoLon, torontoLat],
@@ -53,11 +49,9 @@ let traverseJSON = function ( bloor, markerImgClassName ) {
 		// https://www.google.com/maps/place/43%C2%B051'19.0%22N+79%C2%B006'47.0%22W/@43.8552637,-79.1830983,12z/data=!4m5!3m4!1s0x0:0x0!8m2!3d43.855278!4d-79.113056?hl=en
 		
 
-		// Add `new mapboxgl.Geocoder` code here
-//		const torontoLatEnd = 43.6727089; // https://www.latlong.net/
-//		const torontoLonEnd = -79.376195;
-//		const torontoLatStart = 43.653225; // According to https://www.geodatasource.com/distance-calculator
-//		const torontoLonStart = -79.383186; // these coordinates are 2.24 KM apart.
+		// Technically this boundary box is larger than Toronto but that ensures
+		// that if the user enters an address it will be found. Will find more than 
+		// Toronto but at least won't say that an address in Toronto doesn't exist.
 		const torontoLatMax = 43.855278; // northeastern corner of box
 		const torontoLonMin = -79.639167;
 		const torontoLatMin = 43.58; // southwestern corner of box
@@ -72,12 +66,11 @@ let traverseJSON = function ( bloor, markerImgClassName ) {
 		map.addControl(geocoder, 'top-left');
 
 
-		// Add the `map.addSource` and `map.addLayer` here
 		map.addSource('single-point', {
 			type: 'geojson',
 			data: {
 				type: 'FeatureCollection',
-				features: [] // Notice that initially there are no features
+				features: [] // Initially there are no features
 			}
 		});
 
@@ -93,7 +86,6 @@ let traverseJSON = function ( bloor, markerImgClassName ) {
 			}
 		});
 
-		// Add the `geocode` event listener here
 		geocoder.on('result', function(ev) {
 			var searchResult = ev.result.geometry;
 			map.getSource('single-point').setData(searchResult);
