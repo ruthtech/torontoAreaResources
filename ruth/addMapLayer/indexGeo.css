@@ -114,13 +114,24 @@ a:hover {
 	border-radius: 0;
 }
 
-.marker {
+.marker-school, .marker-communityCentre, .marker-library {
 	border: none;
 	cursor: pointer;
 	height: 56px;
 	width: 56px;
-	background-image: url("img/marker.png");
 	background-color: rgba(0, 0, 0, 0);
+}
+
+.marker-school {
+	background-image: url("img/map-arrow-red.png");
+}
+
+.marker-communityCentre {
+	background-image: url("img/map-arrow-green.png");
+}
+
+.marker-library {
+	background-image: url("img/map-arrow-blue.png");
 }
 
 .clearfix {
@@ -189,3 +200,16 @@ a:hover {
 }
 
 /*add styles for mapboxgl-ctrl-geocoder here*/
+.mapboxgl-ctrl-geocoder {
+  border: 0;
+  border-radius: 0;
+  position: relative;
+  top: 0;
+  width: 800px;
+  margin-top: 0;
+}
+
+.mapboxgl-ctrl-geocoder > div {
+  min-width: 100%;
+  margin-left: 0;
+}
