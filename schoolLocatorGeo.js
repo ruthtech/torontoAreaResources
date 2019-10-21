@@ -166,7 +166,7 @@ function fetchCentresAndLibraries( myCallbackFunction ) {
 $.ajax({
     dataType: "json",
     type: "GET",
-    url: `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
+    url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
     data: { "id": "b5f103a8-f100-4f56-ac34-d178965f28b7" }
 })
 .done(function(response) {

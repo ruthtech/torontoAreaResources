@@ -23,21 +23,22 @@
       </div>
     <div id='listings' class='listings'></div>
     </div>
+    <nav id="menu"></nav>
     <div id='map' class='map'> </div>
 
   <script src="./mapAPIKey.js"></script>
-<!--   <script src="./geoJSON/Air-Conditioned-and-Cool-Spaces.js"></script> -->
-<!--   <script src="./geoJSON/School-locations-all-types-data.js"></script> -->
+  <script src="./geoJSON/Air-Conditioned-and-Cool-Spaces.js"></script>
+  <script src="./geoJSON/School-locations-all-types-data.js"></script>
   <script src="./indexGeo.js"></script>
   <script src="./schoolLocatorGeo.js"></script>
   <script>
   	createMap();
   	
-  	fetchSchools(traverseJSON);
-  	fetchCentresAndLibraries(traverseJSON);
+//  	fetchSchools(traverseJSON);
+//  	fetchCentresAndLibraries(traverseJSON);
 
-// 	traverseJSON(centres, "communityCentre");
-// 	traverseJSON(schools, "school");
+	traverseJSON(centres, "communityCentre");
+	traverseJSON(schools, "school");
   </script>
   </body>
 </html>

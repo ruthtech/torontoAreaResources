@@ -8,11 +8,19 @@
     <link rel="icon" type="image/png" href="./assets/images/cn-tower.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
     <!-- <link rel="stylesheet" href="./assets/styles/debug.css"> -->
-<script src="./login.js"></script>
+<!-- <script src="./login.js"></script> -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
 
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+    <link href="./indexGeo.css" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/styles/main.css">
 </head>
 
@@ -43,18 +51,26 @@
 
 
     <section class="container" id="main-content">
-        <div class="columns">
-            <div class="column is-two-thirds" id="map"></div>
+        <div class="columns is-multiline">
+            <!-- <div class="column" id="map"></div> -->
+                <!-- <div class='sidebar'>
+                    <div class='heading'>
+                        <h1>Toronto Area Resources</h1>
+                    </div>
+                    <div id='listings' class='listings'></div>
+                </div> -->
+                <div id='map' class='map column'> </div>
 
 
-            <div class="column">
+            
+            <div class="column is-one-quarter">
                 <form class="form-horizontal has-background-light">
                     <fieldset>
                 
 
                         <legend class="text-center title">Search</legend>
                 
-                        <!-- Search input-->
+
                         <div class="field">
                             <label class="label">Enter an address</label>
                             <div class="control">
@@ -69,7 +85,7 @@
                             <label class="label">Distance limit</label>
                             <div class="control">
                                 <div class="select is-primary">
-                                    <select id="selectbasic-2"  >
+                                    <select id="selectbasic-2">
                                         <option>1km</option>
                                         <option>5km</option>
                                         <option>10km</option>
@@ -136,7 +152,6 @@
 
                 <section id="search-results"></section>
 
-
             </div>
         </div>
     </section>
@@ -153,7 +168,12 @@
 </footer>
 
     
-    <script>
+    <!-- <script>
+
+        // if ($(window).width() > 767) {
+        //         $('.mapboxgl-canvas').attr('position', 'unset');
+        //     }
+        
         $(document).ready(
             function () {
                 if (!Login.isAPIKeySet()) {
@@ -161,12 +181,22 @@
                     window.location = "./login.html";
                 }
             }
-        );
-    </script>
+            );
+        </script> -->
     
-    <script src="./schoolLocator.js"></script>
-    <script src="./loadMap.js"></script>
+    <script src="./mapAPIKey.js"></script>
+    <script src="./schoolLocatorGeo.js"></script>
+    <script src="./indexGeo.js"></script>
 
+    <script>
+        createMap();
+
+        fetchSchools(traverseJSON);
+        fetchCentresAndLibraries(traverseJSON);
+
+    // 	traverseJSON(centres, "communityCentre");
+    // 	traverseJSON(schools, "school");
+    </script>
 
 </body>
 

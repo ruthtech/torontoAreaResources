@@ -33,7 +33,7 @@ let traverseJSON = function ( bloor, dataName ) {
 			type: 'geojson',
 			data: bloor
 		});
-		buildLocationList(bloor, dataName); // Initialize the list
+		// buildLocationList(bloor, dataName); // Initialize the list
 		
 		// If it's already on the map, don't add it again. 
 		// After creating it, initialize it with this source data. 
@@ -87,8 +87,8 @@ let traverseJSON = function ( bloor, dataName ) {
 				activeItem[0].classList.remove('active');
 			}
 
-			var listing = document.getElementById('listing-' + dataName + "-" + i);
-			listing.classList.add('active');
+			// var listing = document.getElementById('listing-' + dataName + "-" + i);
+			// listing.classList.add('active');
 
 		});
 	});
@@ -211,11 +211,13 @@ let traverseJSON = function ( bloor, dataName ) {
 	}
 	
 	function createPopupHTML(feature) {
+		console.log(feature.properties,"bla");
 		// The feature is the marker itself
 		// The properties of the marker contain the data from the original JSON object.
 		if(feature.properties.locationCode === "LIBRARY") {
+			console.log('IM LOURD');
 			return createLibraryPopupHTML(feature);
-		} else if(feature.properties.SCHOOL_TYPE) {
+		} else if (feature.properties.hasOwnProperty('schoolType')) {
 			return createSchoolPopupHTML(feature);
 		} else {
 			// COOLING CENTRE (e.g. pool)
@@ -278,12 +280,10 @@ let traverseJSON = function ( bloor, dataName ) {
 	
 	function createCommonPopupHTML(location, locationDesc) {
 		let popupHTML = `
-			<h3>${location.properties.locationName}</h3>
-			${locationDesc}
+			<h3>${location.properties.name}</h3>
 			<ul>
-			<li><b>Address:</b> ${location.properties.address}</li>
+			<li><b>Address:</b> ${location.properties.addressFull}</li>
 			<li><b>Phone:</b> ${location.properties.phone}</li>
-			<li><u><a href="${location.properties.url}">Website</a></u></li>
 			</ul>
 			`;
 		return popupHTML;
@@ -302,15 +302,15 @@ let traverseJSON = function ( bloor, dataName ) {
 //			${typeDesc}
 //			`;
 
-		let typeDesc = (school.properties.SCHOOL_TYPE_DESC == undefined) ? `<p></p>` : `<p>${school.properties.SCHOOL_TYPE_DESC}</p>`;
-		let altName = (school.properties.ALTERNATIVE_NAME == null) ? `` : `<h4>Alternative name: ${school.properties.ALTERNATIVE_NAME}</h4>`;
-		let board = (school.properties.BOARD_NAME == undefined) ? `<p>Board: Private school</p>` : `<p>${school.properties.BOARD_NAME}</p>`;
+		let typeDesc = (school.properties.schoolTypeDesc == undefined) ? `<p></p>` : `<p>${school.properties.schoolTypeDesc}</p>`;
+		let altName = (school.properties.nameAlt == null) ? `` : `<h4>Alternative name: ${school.properties.nameAlt}</h4>`;
+		let board = (school.properties.board == undefined) ? `<p>Board: Private school</p>` : `<p>${school.properties.board}</p>`;
 		let popupHTML = `
-			<h3>${school.properties.NAME}</h3>
+			<h3>${school.properties.name}</h3>
 			${altName}
-			<p>Municipality: ${school.properties.MUNICIPALITY}</p>
+			<p>Municipality: ${school.properties.municipality}</p>
 			${board}
-			<p>${school.properties.ADDRESS_FULL}</p>
+			<p>${school.properties.addressFull}</p>
 			${typeDesc}
 			`;
 		return popupHTML;
@@ -318,43 +318,43 @@ let traverseJSON = function ( bloor, dataName ) {
 
 
 
-	function buildLocationList(data, dataName) {
-		for (i = 0; i < data.features.length; i++) {
-			let currentFeature = data.features[i];
-			let prop = currentFeature.properties;
-			let distanceHTML = "";
+	// function buildLocationList(data, dataName) {
+	// 	for (i = 0; i < data.features.length; i++) {
+	// 		let currentFeature = data.features[i];
+	// 		let prop = currentFeature.properties;
+	// 		let distanceHTML = "";
 
-			if (prop.distance) {
-				var roundedDistance = Math.round(prop.distance * 100) / 100;
-				distanceHTML = `<p><strong>${roundedDistance} kilometres away</strong></p>`;
-			}
+	// 		if (prop.distance) {
+	// 			var roundedDistance = Math.round(prop.distance * 100) / 100;
+	// 			distanceHTML = `<p><strong>${roundedDistance} kilometres away</strong></p>`;
+	// 		}
 
 			
-			let listingHTML = createListingHTML(i, dataName, currentFeature, distanceHTML);
-			$("#listings").append(listingHTML);
+	// 		let listingHTML = createListingHTML(i, dataName, currentFeature, distanceHTML);
+	// 		$("#listings").append(listingHTML);
 
-			let link = document.getElementById(`listing-${dataName}-${i}`).children[0]; 
+	// 		let link = document.getElementById(`listing-${dataName}-${i}`).children[0]; 
 
-			link.addEventListener('click', function(e){
-				// Update the currentFeature to the store associated with the clicked link
-				let clickedListing = data.features[this.getAttribute("data-position")];
+	// 		link.addEventListener('click', function(e){
+	// 			// Update the currentFeature to the store associated with the clicked link
+	// 			let clickedListing = data.features[this.getAttribute("data-position")];
 
-				// 1. Fly to the point
-				flyToStore(clickedListing);
+	// 			// 1. Fly to the point
+	// 			flyToStore(clickedListing);
 
-				// 2. Close all other popups and display popup for clicked store
-				createPopUp(clickedListing);
+	// 			// 2. Close all other popups and display popup for clicked store
+	// 			createPopUp(clickedListing);
 
-				// 3. Highlight listing in sidebar (and remove highlight for all other listings)
-				var activeItem = document.getElementsByClassName('active');
+	// 			// 3. Highlight listing in sidebar (and remove highlight for all other listings)
+	// 			var activeItem = document.getElementsByClassName('active');
 
-				if (activeItem[0]) {
-					activeItem[0].classList.remove('active');
-				}
-				this.parentNode.classList.add('active');
+	// 			if (activeItem[0]) {
+	// 				activeItem[0].classList.remove('active');
+	// 			}
+	// 			this.parentNode.classList.add('active');
 
-			});
+	// 		});
 
-		}
-	}
+	// 	}
+	// }
 }
