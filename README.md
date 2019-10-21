@@ -25,7 +25,31 @@ It's simple:
 - MapBox API
 
 -------------------------------------------------------------------------------------------
+**Acknowledgements**
 
+***Images Credit***
+
+Book map pin:
+- Icons made by https://www.flaticon.com/authors/freepik
+
+School map pin: 
+- Author: https://www.flaticon.com/authors/itim2101
+- Downloaded from https://www.flaticon.com
+
+School map pin: 
+- Author: https://www.flaticon.com/authors/itim2101
+- Downloaded from https://www.flaticon.com
+
+CN Tower:
+- Author: https://www.flaticon.com/authors/smalllikeart
+- Downloaded from www.flaticon.com
+
+***Code Credit***
+
+Some of this code was built on top of the example from Mapbox:
+- https://docs.mapbox.com/help/tutorials/building-a-store-locator/
+
+-------------------------------------------------------------------------------------------
 **Future Considerations:**
 
 - include more complete reference information within marker menus. Information like Hours of Operation, Phone Number, and a URL to that individual place's domain.
