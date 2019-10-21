@@ -5,9 +5,11 @@
 
 It's simple: 
 
-- Enter _____ to populate a map with markers representing important community resources, like schools, libraries, and community centres.
+1. Enter an address to zoom to that position on a map
 
-- Markers can be clicked on to reveal details of the place in question.
+1. Toggles allow users to display different markers on the map representing important community resources, like schools, libraries, and community centres.
+
+1. Markers can be clicked on to reveal details of the place in question.
 
 
 The app allows one to better visualize what it might be like to live in different areas of Toronto. This can be especially beneficial to newcomers trying to familiarize themselves with an area, or families considering their options for schools and recreational centres.
