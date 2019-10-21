@@ -2,7 +2,7 @@
 console.log('hi');
 
 
-//const proxyServer = 'https://cors-anywhere.herokuapp.com/';
+const proxyServer = 'https://cors-anywhere.herokuapp.com/';
 //const proxyServer = 'https://repos.codehot.tech/cors_proxy.php?';
 
 
@@ -47,7 +47,7 @@ $.ajax({
     
     dataType: "json",
     type: "GET",
-    url: `https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
+    url: `${proxyServer}https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show`,
     data: { "id": "1a714b5c-64c0-4cdf-9739-0086f80fb3ee" }
 })
 .done(function(response) {
