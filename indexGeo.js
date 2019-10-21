@@ -33,7 +33,9 @@ let traverseJSON = function ( bloor, dataName ) {
 			type: 'geojson',
 			data: bloor
 		});
-		// buildLocationList(bloor, dataName); // Initialize the list
+		
+		//buildLocationList(bloor, dataName); // Initialize the list
+		addToToggleMenu(dataName);
 		
 		// If it's already on the map, don't add it again. 
 		// After creating it, initialize it with this source data. 
@@ -68,9 +70,7 @@ let traverseJSON = function ( bloor, dataName ) {
 		el.className = "marker-"+dataName;
 
 		// Add markers to the map at all points
-		new mapboxgl.Marker(el, {offset: [0, -23]})
-		.setLngLat(marker.geometry.coordinates)
-		.addTo(map);
+		createDataSourceMarker(el, marker.geometry.coordinates, dataName);
 
 		el.addEventListener('click', function(e){
 			// 1. Fly to the point
@@ -93,6 +93,69 @@ let traverseJSON = function ( bloor, dataName ) {
 		});
 	});
 	
+	function addToToggleMenu(dataSourceId) {
+		var link = document.createElement('a');
+		link.href = '#';
+		link.className = 'active';
+		link.textContent = dataSourceId;
+
+		link.onclick = function (e) {
+			var clickedLayer = this.textContent; // which markers does the user want to see? 
+			e.preventDefault();
+			e.stopPropagation();
+			
+			// Find the markers associated with this dataSourceId (aka clickedLayer)
+			let myMarkerClass = clickedLayer+"Marker";
+			let markerElements = document.getElementsByClassName(myMarkerClass);
+			toggleVisibility(markerElements);
+		};
+		
+		var layers = document.getElementById('menu');
+		layers.appendChild(link);
+	}
+	
+	function createDataSourceMarker(el, coordinates, dataSourceId) {
+		let markerColor;
+			
+		if(dataSourceId == "libraries") {
+			markerColor = "#b40219";
+		} else if(dataSourceId == "schools") {
+			markerColor = "#000000";
+		} else {
+			// community centre
+			markerColor = "#006600";
+		}
+
+		let marker = new mapboxgl.Marker(el, {"color": markerColor})
+		  .setLngLat(coordinates)
+		  .addTo(map);
+		
+		
+		el.classList.add(dataSourceId+"Marker"); // for retrieval later
+		toggleMarkerVisibility(el, true);
+		
+		return marker;
+	}
+	
+	function toggleVisibility(markerElements) {
+		let isVisible = markerElements[0].classList.contains("show");
+		
+		// On those markers, set visible or invisible
+		for(let i=0; i<markerElements.length; i++) {
+			let marker = markerElements[i];
+			toggleMarkerVisibility(marker, !isVisible);
+		}
+
+	}
+
+	function toggleMarkerVisibility(markerElement, shouldDisplay) {
+	    var addClass = (shouldDisplay) ? "show" : "hide";
+	    var removeClass = (shouldDisplay) ? "hide" : "show";
+
+	    markerElement.classList.add(addClass);
+	    markerElement.classList.remove(removeClass);
+	}
+		
 	function addGeocoder( dataSet, dataName ) {
 		// If the geocoder is already added, don't add it again
 		// But we initialize it with every type of data going in ...
