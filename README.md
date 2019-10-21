@@ -1,6 +1,6 @@
 # Toronto Area Resources
 
-An app to help families and individuals research areas in Toronto.
+**An app to help families and individuals research areas in Toronto.**
 
 
 It's simple: 
