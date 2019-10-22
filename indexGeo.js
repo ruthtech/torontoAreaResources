@@ -1,5 +1,6 @@
 let map; // initialize in createMap();
 let _geocoder = null;
+let _listenerInitialized = false; // The listener on the drop-down listing the types of markers needs to be added only once.
 
 function createMap() {
 //	This will let you use the .remove() function later on
@@ -60,40 +61,49 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 	addToToggleMenu(dataName);
 	
 	function addToToggleMenu(dataSourceId) {
+		// If the listener is already added, don't add it again.
+		initializeToggleListener();
+		
         let newOption = document.createElement("option");
         newOption.innerText = dataSourceId;
-        
-        let categories = document.getElementById("categories");
-        categories.appendChild(newOption);
-        
-		categories.addEventListener("change", function (e) {
-			//var clickedLayer = this.textContent; // which markers does the user want to see? 
-			var categories = document.getElementById('categories');
-			var val = categories.options[categories.selectedIndex].value;
-			e.preventDefault();
-			e.stopPropagation();
+	    let categories = document.getElementById("categories");
+	    categories.appendChild(newOption);
+	}
+	
+	function initializeToggleListener() {
+		if(!_listenerInitialized) {
+		    let categories = document.getElementById("categories");	    
+			categories.addEventListener("change", function (e) {
+				// Which markers does the user want to see? 
+				var categories = document.getElementById('categories');
+				var val = categories.options[categories.selectedIndex].value;
+				e.preventDefault();
+				e.stopPropagation();
+				
+				// Find the markers associated with this dataSourceId (aka clickedLayer)
+				let markerClasses = ["schoolMarker", "communityCentreMarker", "libraryMarker"];
+				if(val == "All") {
+					// show all markers
+					for(let i=0; i<markerClasses.length; i++) {
+						let myMarkerClass = markerClasses[i];
+						let markerElements = document.getElementsByClassName(myMarkerClass);
+						toggleVisibility(markerElements, true);	// show all markers
+					}
+		
+				} else {
+					// show only the markers in this layer
+					for(let i=0; i<markerClasses.length; i++) {
+						let myMarkerClass = markerClasses[i];
+						let selectedMarkerClass = val+"Marker";
+						let show = (myMarkerClass == selectedMarkerClass);
+						let markerElements = document.getElementsByClassName(myMarkerClass);
+						toggleVisibility(markerElements, show);	// show only the elements in this layer
+					}
+				}
+			});
 			
-			// Find the markers associated with this dataSourceId (aka clickedLayer)
-			let markerClasses = ["schoolMarker", "communityCentreMarker", "libraryMarker"];
-			if(val == "All") {
-				// show all markers
-				for(let i=0; i<markerClasses.length; i++) {
-					let myMarkerClass = markerClasses[i];
-					let markerElements = document.getElementsByClassName(myMarkerClass);
-					toggleVisibility(markerElements, true);	// show all markers
-				}
-
-			} else {
-				// show only the markers in this layer
-				for(let i=0; i<markerClasses.length; i++) {
-					let myMarkerClass = markerClasses[i];
-					let selectedMarkerClass = val+"Marker";
-					let show = (myMarkerClass == selectedMarkerClass);
-					let markerElements = document.getElementsByClassName(myMarkerClass);
-					toggleVisibility(markerElements, show);	// show only the elements in this layer
-				}
-			}
-		});
+			_listenerInitialized = true;
+		}
 	}
 	
 	function createDataSourceMarker(el, coordinates, dataSourceId) {
@@ -173,7 +183,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 			map.getSource(dataName).setData(searchResult); //RUTH
 
 			var options = {units: 'kilometers'};
-			 
 			dataSet.features.forEach(function(location){
 				Object.defineProperty(location.properties, 'distance', {
 					value: turf.distance(searchResult, location.geometry, options),
@@ -204,11 +213,9 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 	}
 	
 	function createPopupHTML(feature) {
-		console.log(feature.properties,"bla");
 		// The feature is the marker itself
 		// The properties of the marker contain the data from the original JSON object.
 		if(feature.properties.locationCode === "LIBRARY") {
-			console.log('IM LOURD');
 			return createLibraryPopupHTML(feature);
 		} else if (feature.properties.hasOwnProperty('schoolType')) {
 			return createSchoolPopupHTML(feature);
@@ -230,45 +237,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 				communityCentre, 
 				`<h4>${communityCentre.properties.locationDesc}</h4>`
 		);
-	}
-	
-	function createListingHTML(i, dataName, currentFeature, distanceHTML) {
-		let prop = currentFeature.properties;
-		
-		// The feature is the marker itself
-		// The properties of the marker contain the data from the original JSON object.
-		if(currentFeature.properties.locationCode === "LIBRARY") {
-			return createLibraryListingHTML(i, dataName, prop, distanceHTML);
-		} else if(currentFeature.properties.SCHOOL_TYPE) {
-			return createSchoolListingHTML(i, dataName, prop, distanceHTML);
-		} else {
-			// COOLING CENTRE (e.g. pool)
-			return createCentreListingHTML(i, dataName, prop, distanceHTML);
-		}
-	}
-	
-	function createCentreListingHTML(i, dataName, prop, distanceHTML) {
-		return createCommonListingHTML(i, dataName, prop.address, prop.locationName, prop.locationDesc, distanceHTML);
-	}
-	
-	function createLibraryListingHTML(i, dataName, prop, distanceHTML) {
-		return createCommonListingHTML(i, dataName, prop.address, prop.locationName, prop.locationDesc, distanceHTML);
-	}
-	
-	function createSchoolListingHTML(i, dataName, prop, distanceHTML) {
-		return createCommonListingHTML(i, dataName, prop.ADDRESS_FULL, prop.NAME, prop.SCHOOL_TYPE_DESC, distanceHTML);
-	}
-	
-	
-	function createCommonListingHTML(i, dataName, address, name, desc, distanceHTML) {
-		let listingHTML = `
-			<div class="item" id="listing-${dataName}-${i}">
-			<a href="#" class="title" data-position="${i}">${address}</a>
-			<div>${name} &middot; ${desc}</div>
-			${distanceHTML}
-			</div>
-			`;
-		return listingHTML;
 	}
 	
 	function createCommonPopupHTML(location, locationDesc) {
