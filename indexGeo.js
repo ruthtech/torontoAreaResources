@@ -35,7 +35,7 @@ let traverseJSON = function ( bloor, dataName ) {
 		});
 		
 		//buildLocationList(bloor, dataName); // Initialize the list
-		addToToggleMenu(dataName);
+//		addToToggleMenu(dataName);
 		
 		// If it's already on the map, don't add it again. 
 		// After creating it, initialize it with this source data. 
@@ -92,44 +92,50 @@ let traverseJSON = function ( bloor, dataName ) {
 
 		});
 	});
+
+	addToToggleMenu(dataName);
 	
 	function addToToggleMenu(dataSourceId) {
-		var link = document.createElement('a');
-		link.href = '#';
-		link.className = 'active';
-		link.textContent = dataSourceId;
-
-		link.onclick = function (e) {
-			var clickedLayer = this.textContent; // which markers does the user want to see? 
+        let newOption = document.createElement("option");
+        newOption.innerText = dataSourceId;
+        
+        let categories = document.getElementById("categories");
+        categories.appendChild(newOption);
+        
+		categories.addEventListener("click", function (e) {
+			//var clickedLayer = this.textContent; // which markers does the user want to see? 
+			var categories = document.getElementById('categories');
+			var val = categories.options[categories.selectedIndex].value;
 			e.preventDefault();
 			e.stopPropagation();
 			
 			// Find the markers associated with this dataSourceId (aka clickedLayer)
-			let myMarkerClass = clickedLayer+"Marker";
-			let markerElements = document.getElementsByClassName(myMarkerClass);
-			toggleVisibility(markerElements);
-		};
-		
-		var layers = document.getElementById('menu');
-		layers.appendChild(link);
+			let markerClasses = ["schoolMarker", "communityCentreMarker", "libraryMarker"];
+			if(val == "All") {
+				// show all markers
+				for(let i=0; i<markerClasses.length; i++) {
+					let myMarkerClass = markerClasses[i];
+					let markerElements = document.getElementsByClassName(myMarkerClass);
+					toggleVisibility(markerElements, true);	// show all markers
+				}
+
+			} else {
+				// show only the markers in this layer
+				for(let i=0; i<markerClasses.length; i++) {
+					let myMarkerClass = markerClasses[i];
+					let selectedMarkerClass = val+"Marker";
+					let show = (myMarkerClass == selectedMarkerClass);
+					let markerElements = document.getElementsByClassName(myMarkerClass);
+					toggleVisibility(markerElements, show);	// show only the elements in this layer
+				}
+			}
+		});
 	}
 	
 	function createDataSourceMarker(el, coordinates, dataSourceId) {
-		let markerColor;
-			
-		if(dataSourceId == "libraries") {
-			markerColor = "#b40219";
-		} else if(dataSourceId == "schools") {
-			markerColor = "#000000";
-		} else {
-			// community centre
-			markerColor = "#006600";
-		}
-
-		let marker = new mapboxgl.Marker(el, {"color": markerColor})
+		let marker = new mapboxgl.Marker(el)
 		  .setLngLat(coordinates)
 		  .addTo(map);
-		
 		
 		el.classList.add(dataSourceId+"Marker"); // for retrieval later
 		toggleMarkerVisibility(el, true);
@@ -137,13 +143,18 @@ let traverseJSON = function ( bloor, dataName ) {
 		return marker;
 	}
 	
-	function toggleVisibility(markerElements) {
-		let isVisible = markerElements[0].classList.contains("show");
+	function toggleVisibility(markerElements, show) {
+		if(!markerElements) {
+			return;
+		}
+		if(markerElements.length == 0) {
+			return;
+		}
 		
 		// On those markers, set visible or invisible
 		for(let i=0; i<markerElements.length; i++) {
 			let marker = markerElements[i];
-			toggleMarkerVisibility(marker, !isVisible);
+			toggleMarkerVisibility(marker, show);
 		}
 
 	}
