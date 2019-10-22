@@ -51,6 +51,8 @@ Some of this code was built on top of the example from Mapbox:
 
 ***Latitude and Longitude calculation Credit***
 
+To set the search area for Toronto we needed to pass a bounding box to MapBox.
+
 Calculate the Bounding box for Toronto in degrees:
 https://boundingbox.klokantech.com/
 			
