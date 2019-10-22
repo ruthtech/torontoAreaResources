@@ -22,24 +22,23 @@ function createMap() {
 }
 
 
-let traverseJSON = function ( bloor, dataName ) {
+let traverseJSON = function ( torontoLocations, dataName ) {
 	console.log(">>>traverseJSON1" + " " + dataName);
-	console.log(bloor);
+	console.log(torontoLocations);
 	console.log(">>>traverseJSON2" + " " + dataName);
 	
-	// This adds the bloor to the map
+	// This adds the torontoLocations to the map
 	map.on('load', function(e) {
 		map.addSource(dataName, {
 			type: 'geojson',
-			data: bloor
+			data: torontoLocations
 		});
 		
-		//buildLocationList(bloor, dataName); // Initialize the list
-//		addToToggleMenu(dataName);
+		//buildLocationList(torontoLocations, dataName); // Initialize the list
 		
 		// If it's already on the map, don't add it again. 
 		// After creating it, initialize it with this source data. 
-		addGeocoder(bloor, dataName); 
+		addGeocoder(torontoLocations, dataName); 
 
 		map.addSource('single-point', {
 			type: 'geojson',
@@ -63,7 +62,7 @@ let traverseJSON = function ( bloor, dataName ) {
 
 	});
 
-	bloor.features.forEach(function(marker, i) {
+	torontoLocations.features.forEach(function(marker, i) {
 		// Create an img element for the marker
 		var el = document.createElement('div');
 		el.id = "marker-" + i;
@@ -202,12 +201,17 @@ let traverseJSON = function ( bloor, dataName ) {
 			});
 
 			map.addControl(_geocoder, 'top-left');
-			
+			$("#searchAddress").on('keyup', function (e) {
+			    if (e.keyCode === 13) {
+			        // When the user clicks the Enter key in the search field.
+			    	console.log(e);
+			    }
+			});
 		}
 		
 		_geocoder.on('result', function(ev) {
 			var searchResult = ev.result.geometry;
-			map.getSource('single-point').setData(searchResult);
+			map.getSource(dataName).setData(searchResult); //RUTH
 
 			var options = {units: 'kilometers'};
 			 
@@ -236,7 +240,7 @@ let traverseJSON = function ( bloor, dataName ) {
 				listings.removeChild(listings.firstChild);
 			}
 
-			buildLocationList(bloor, dataName); 
+			buildLocationList(torontoLocations, dataName); 
 			
 			function sortLonLat(locationIdentifier) {
 				var lats = [dataSet.features[locationIdentifier].geometry.coordinates[1], searchResult.coordinates[1]]
