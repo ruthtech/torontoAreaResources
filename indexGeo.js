@@ -34,32 +34,9 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 			data: torontoLocations
 		});
 		
-		//buildLocationList(torontoLocations, dataName); // Initialize the list
-		
 		// If it's already on the map, don't add it again. 
 		// After creating it, initialize it with this source data. 
 		addGeocoder(torontoLocations, dataName); 
-
-		map.addSource('single-point', {
-			type: 'geojson',
-			data: {
-				type: 'FeatureCollection',
-				features: [] // Initially there are no features
-			}
-		});
-
-		map.addLayer({
-			id: dataName,
-			source: 'single-point',
-			type: 'circle',
-			paint: {
-				'circle-radius': 10,
-				'circle-color': '#007cbf',
-				'circle-stroke-width': 3,
-				'circle-stroke-color': '#fff'
-			}
-		});
-
 	});
 
 	torontoLocations.features.forEach(function(marker, i) {
@@ -77,18 +54,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 
 			// 2. Close all other popups and display popup for clicked store
 			createPopUp(marker);
-
-			// 3. Highlight listing in sidebar (and remove highlight for all other listings)
-			var activeItem = document.getElementsByClassName('active');
-
-			e.stopPropagation();
-			if (activeItem[0]) {
-				activeItem[0].classList.remove('active');
-			}
-
-			// var listing = document.getElementById('listing-' + dataName + "-" + i);
-			// listing.classList.add('active');
-
 		});
 	});
 
@@ -217,50 +182,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 					configurable: true
 				});
 			});
-
-			dataSet.features.sort(function(a,b){
-				if (a.properties.distance > b.properties.distance) {
-					return 1;
-				}
-				if (a.properties.distance < b.properties.distance) {
-					return -1;
-				}
-				// a must be equal to b
-				return 0;
-			});
-
-			var listings = document.getElementById('listings');
-			while (listings.firstChild) {
-				listings.removeChild(listings.firstChild);
-			}
-
-			buildLocationList(torontoLocations, dataName); 
-			
-			function sortLonLat(locationIdentifier) {
-				var lats = [dataSet.features[locationIdentifier].geometry.coordinates[1], searchResult.coordinates[1]]
-				var lons = [dataSet.features[locationIdentifier].geometry.coordinates[0], searchResult.coordinates[0]]
-
-				var sortedLons = lons.sort(function(a,b){
-					if (a > b) { return 1; }
-					if (a.distance < b.distance) { return -1; }
-					return 0;
-				});
-				var sortedLats = lats.sort(function(a,b){
-					if (a > b) { return 1; }
-					if (a.distance < b.distance) { return -1; }
-					return 0;
-				});
-
-				map.fitBounds([
-					[sortedLons[0], sortedLats[0]],
-					[sortedLons[1], sortedLats[1]]
-					], {
-					padding: 100
-				});
-			};
-
-			sortLonLat(0);
-			createPopUp(dataSet.features[0]);
 
 		});
 	}
