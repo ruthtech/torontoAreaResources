@@ -201,12 +201,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 			});
 
 			map.addControl(_geocoder, 'top-left');
-			$("#searchAddress").on('keyup', function (e) {
-			    if (e.keyCode === 13) {
-			        // When the user clicks the Enter key in the search field.
-			    	console.log(e);
-			    }
-			});
 		}
 		
 		_geocoder.on('result', function(ev) {
