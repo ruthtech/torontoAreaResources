@@ -3,7 +3,7 @@ let _geocoder = null;
 let _listenerInitialized = false; // The listener on the drop-down listing the types of markers needs to be added only once.
 
 function createMap() {
-//	This will let you use the .remove() function later on
+    // This will let you use the .remove() function later on
 	if (!('remove' in Element.prototype)) {
 		Element.prototype.remove = function() {
 			if (this.parentNode) {
@@ -58,18 +58,16 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 		});
 	});
 
-	addToToggleMenu(dataName);
+	// If the listener is already added, don't add it again.
+	initializeToggleListener();
+
+	// Add the type of location to the drop-down menu
+    let newOption = document.createElement("option");
+    newOption.innerText = dataName;
+    let categories = document.getElementById("categories");
+    categories.appendChild(newOption);
 	
-	function addToToggleMenu(dataSourceId) {
-		// If the listener is already added, don't add it again.
-		initializeToggleListener();
-		
-        let newOption = document.createElement("option");
-        newOption.innerText = dataSourceId;
-	    let categories = document.getElementById("categories");
-	    categories.appendChild(newOption);
-	}
-	
+    
 	function initializeToggleListener() {
 		if(!_listenerInitialized) {
 		    let categories = document.getElementById("categories");	    
@@ -180,7 +178,7 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 		
 		_geocoder.on('result', function(ev) {
 			var searchResult = ev.result.geometry;
-			map.getSource(dataName).setData(searchResult); //RUTH
+			map.getSource(dataName).setData(searchResult);
 
 			var options = {units: 'kilometers'};
 			dataSet.features.forEach(function(location){
@@ -190,6 +188,8 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 					enumerable: true,
 					configurable: true
 				});
+				console.log(location);
+				console.log(`distance ${location.properties.distance}`);
 			});
 
 		});
@@ -245,6 +245,7 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 			<ul>
 			<li><b>Address:</b> ${location.properties.addressFull}</li>
 			<li><b>Phone:</b> ${location.properties.phone}</li>
+			<li>${generateDistanceHTML(location)}</li>
 			</ul>
 			`;
 		return popupHTML;
@@ -261,49 +262,21 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 			${board}
 			<p>${school.properties.addressFull}</p>
 			${typeDesc}
+			${generateDistanceHTML(school)}
 			`;
 		return popupHTML;
 	}
 
 
+	function generateDistanceHTML(location) {
+ 		let prop = location.properties;
+ 		let distanceHTML = "";
 
-	// function buildLocationList(data, dataName) {
-	// 	for (i = 0; i < data.features.length; i++) {
-	// 		let currentFeature = data.features[i];
-	// 		let prop = currentFeature.properties;
-	// 		let distanceHTML = "";
-
-	// 		if (prop.distance) {
-	// 			var roundedDistance = Math.round(prop.distance * 100) / 100;
-	// 			distanceHTML = `<p><strong>${roundedDistance} kilometres away</strong></p>`;
-	// 		}
-
-			
-	// 		let listingHTML = createListingHTML(i, dataName, currentFeature, distanceHTML);
-	// 		$("#listings").append(listingHTML);
-
-	// 		let link = document.getElementById(`listing-${dataName}-${i}`).children[0]; 
-
-	// 		link.addEventListener('click', function(e){
-	// 			// Update the currentFeature to the store associated with the clicked link
-	// 			let clickedListing = data.features[this.getAttribute("data-position")];
-
-	// 			// 1. Fly to the point
-	// 			flyToStore(clickedListing);
-
-	// 			// 2. Close all other popups and display popup for clicked store
-	// 			createPopUp(clickedListing);
-
-	// 			// 3. Highlight listing in sidebar (and remove highlight for all other listings)
-	// 			var activeItem = document.getElementsByClassName('active');
-
-	// 			if (activeItem[0]) {
-	// 				activeItem[0].classList.remove('active');
-	// 			}
-	// 			this.parentNode.classList.add('active');
-
-	// 		});
-
-	// 	}
-	// }
+ 		if (prop.distance) {
+ 			var roundedDistance = (Math.round(prop.distance * 100) / 100).toFixed(2);
+ 			distanceHTML = `<p><strong>${roundedDistance} kilometres from search</strong></p>`;
+ 		}
+ 		
+ 		return distanceHTML;
+	}
 }
