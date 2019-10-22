@@ -66,7 +66,7 @@ let traverseJSON = function ( torontoLocations, dataName ) {
         let categories = document.getElementById("categories");
         categories.appendChild(newOption);
         
-		categories.addEventListener("click", function (e) {
+		categories.addEventListener("change", function (e) {
 			//var clickedLayer = this.textContent; // which markers does the user want to see? 
 			var categories = document.getElementById('categories');
 			var val = categories.options[categories.selectedIndex].value;
