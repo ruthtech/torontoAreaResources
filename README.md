@@ -49,6 +49,20 @@ CN Tower:
 Some of this code was built on top of the example from Mapbox:
 - https://docs.mapbox.com/help/tutorials/building-a-store-locator/
 
+***Latitude and Longitude calculation Credit***
+
+Calculate the Bounding box for Toronto in degrees:
+https://boundingbox.klokantech.com/
+			
+Convert the bounding box degrees to lat and lon:
+https://www.engineeringtoolbox.com/latitude-longitude-d_1371.html		
+			
+That is the northwest and southeast corner of the bounding box.
+Mapbox needs the southwest and northeast corner. Use Google maps to confirm the coordinates: 
+https://www.google.com/maps/place/43%C2%B051'19.0%22N+79%C2%B006'47.0%22W/@43.8552637,-79.1830983,12z/data=!4m5!3m4!1s0x0:0x0!8m2!3d43.855278!4d-79.113056?hl=en
+			
+
+
 -------------------------------------------------------------------------------------------
 **Future Considerations:**
 
