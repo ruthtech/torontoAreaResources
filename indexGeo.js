@@ -188,8 +188,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 					enumerable: true,
 					configurable: true
 				});
-				console.log(location);
-				console.log(`distance ${location.properties.distance}`);
 			});
 
 		});
