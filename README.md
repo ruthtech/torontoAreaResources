@@ -73,7 +73,7 @@ Make the city easy and accessible!
 Allow Torontonians to better benefit from their community resources!
 
 - link to GitHub repo: https://github.com/ruthtech/torontoAreaResources
-- link to deployed GitHub Page: __________
+- link to deployed GitHub Page: https://ruthtech.github.io/torontoAreaResources/
 
 -------------------------------------------------------------------------------------------
 
