@@ -15,7 +15,7 @@ function createMap() {
 	 const torontoLat = 43.6727089;
      map = new mapboxgl.Map({
 		container: 'map',
-		style: 'mapbox://styles/mapbox/light-v10',
+		style: 'mapbox://styles/mapbox/streets-v11',
 		center: [torontoLon, torontoLat],
 		zoom: 13
 	});
@@ -362,18 +362,6 @@ let traverseJSON = function ( torontoLocations, dataName ) {
 	}
 
 	function createSchoolPopupHTML( school ) {
-//		let typeDesc = (school.typeDesc == undefined) ? `<p></p>` : `<p>${school.typeDesc}</p>`;
-//		let altName = (school.nameAlt == null) ? `` : `<h4>Alternative name: ${school.nameAlt}</h4>`;
-//		let board = (school.board == undefined) ? `<p>Board: Private school</p>` : `<p>${school.board}</p>`;
-//		let popupHTML = `
-//			<h3>${school.name}</h3>
-//			${altName}
-//			<p>Municipality: ${school.municipality}</p>
-//			${board}
-//			<p>${school.addressFull}</p>
-//			${typeDesc}
-//			`;
-
 		let typeDesc = (school.properties.schoolTypeDesc == undefined) ? `<p></p>` : `<p>${school.properties.schoolTypeDesc}</p>`;
 		let altName = (school.properties.nameAlt == null) ? `` : `<h4>Alternative name: ${school.properties.nameAlt}</h4>`;
 		let board = (school.properties.board == undefined) ? `<p>Board: Private school</p>` : `<p>${school.properties.board}</p>`;
