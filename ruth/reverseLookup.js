@@ -48,7 +48,7 @@ function constructReverseLookupURL( address, city, province ) {
 	const cityProvinceCountry = `.json?place=${city}&region=${province}&country=CA`;
 	const otherParms = `&access_token=${mapboxgl.accessToken}&cachebuster=1571367145365&autocomplete=true`;
 
-	const reverseLookupURL = `${proxyServer}${URLstart}${normalizedAddress}${cityProvinceCountry}${otherParms}`;
+	const reverseLookupURL = `${URLstart}${normalizedAddress}${cityProvinceCountry}${otherParms}`;
 	return reverseLookupURL;
 }
 
