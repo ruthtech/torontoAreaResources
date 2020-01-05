@@ -1,1 +1,4 @@
-mapboxgl.accessToken = "pk.eyJ1IjoiZXNjaGVyZmFuIiwiYSI6ImNrMXdid2lyNTAwNmkzbW93bTNpMHE4N3YifQ.7Jg5xKMsj7Y29BJG74q7Aw";
+const productionToken = "pk.eyJ1IjoiZXNjaGVyZmFuIiwiYSI6ImNrNHl4bGszeDA1Z2MzZXM3enl3dXAwdGQifQ.GQLGYq0XDlXApqGgkKqF2A";
+
+mapboxgl.accessToken = productionToken;
+
